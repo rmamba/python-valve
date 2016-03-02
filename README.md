@@ -79,3 +79,30 @@ Everything in `valve.source` will/should work in both Python 2.7 and
 Python 3.4 but currently that is the only section that has been ported. The
 rest will be updated in due course but those other components need reworking
 anyway.
+
+Установка
+---------
+Клонируйте код в выбранную директорию:
+
+```git clone -b PyMadChem-interface --single-branch https://github.com/PyMadChem/python-valve.git```
+
+Перейдите в новую директорию 
+
+```cd python-valve```
+
+Запустите установочный скрипт 
+```python setup.py build```
+
+```sudo python setup.py install```
+Теперь вам потребуется GTK для запуска графической составляющей. В Ubuntu-подобных дистрибутивах установите 
+
+```sudo apt-get install python-gi```
+Запуск интерфейса
+-----------------
+Перейдите в директорию с установленными компонентами
+
+```cd python-valve```
+
+Запустите интерфейс
+
+```python interface.py```
