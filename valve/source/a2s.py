@@ -36,6 +36,9 @@ class BaseServerQuerier(object):
             raise NoResponseError(exc)
         return data
 
+    def __del__(self):
+        self.socket.close()
+
 
 class ServerQuerier(BaseServerQuerier):
     """Implements the A2S Source server query protocol
@@ -193,7 +196,7 @@ class ServerQuerier(BaseServerQuerier):
         # TF2 and L4D2's A2S_SERVERQUERY_GETCHALLENGE doesn't work so
         # just use A2S_PLAYER to get challenge number which should work
         # fine for all servers
-        self.request(messages.PlayersRequest(challenge=-1))
+        self.request(messages.PlayersRequest(challenge=0))
         challenge = messages.GetChallengeResponse.decode(self.get_response())
         self.request(messages.PlayersRequest(challenge=challenge["challenge"]))
         return messages.PlayersResponse.decode(self.get_response())
