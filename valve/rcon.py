@@ -96,6 +96,7 @@ class RCONMessage(object):
         AUTH_RESPONSE = 2
         EXECCOMMAND = 2
         AUTH = 3
+        RESPONSE_RUST = 4
 
     def __init__(self, id_, type_, body_or_text):
         self.id = int(id_)
@@ -280,10 +281,10 @@ class _ResponseBuffer(object):
                                          in self._partial_responses[:-2]),
                             ))
                             del self._partial_responses[:]
-                else:
-                    if self._partial_responses:
-                        log.warning("Unexpected message %r", message)
-                    self._enqueue_or_discard(message)
+                    else:
+                        if self._partial_responses:
+                            log.warning("Unexpected message %r", message)
+                        self._enqueue_or_discard(message)
 
     def feed(self, bytes_):
         """Feed bytes into the buffer."""
